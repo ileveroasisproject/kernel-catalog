@@ -206,7 +206,7 @@
                 return;
             }
 
-            liensFiltres.forEach((item, index) => {
+            liensFiltres.forEach((item, uniqueIndex) => {
                 const card = document.createElement('div');
                 card.className = 'link-card';
                 card.innerHTML = `
@@ -214,8 +214,8 @@
                     <h3>${item.titre}</h3>
                     <p>${item.description}</p>
                     <div class="url-box">
-                        <input type="text" id="url-field-${index}" value="${item.url}" readonly>
-                        <button onclick="copierLien('url-field-${index}', this)">Copier</button>
+                        <input type="text" id="url-item-${uniqueIndex}" value="${item.url}" readonly>
+                        <button onclick="copierLien('url-item-${uniqueIndex}', this)">Copier</button>
                     </div>
                 `;
                 conteneur.appendChild(card);
@@ -229,6 +229,7 @@
 
         function copierLien(idInput, bouton) {
             const input = document.getElementById(idInput);
+            if (!input) return;
             input.select();
             input.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(input.value);
@@ -242,6 +243,7 @@
             }, 2000);
         }
 
+        // Chargement initial
         afficherLiens('toutes');
     </script>
 

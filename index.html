@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Annuaire KERNEL</title>
     <style>
-        /* Fond d'écran avec sourires effrayants répétés */
         body {
             background-color: #000000;
             background-image: 
@@ -16,7 +15,6 @@
             padding: 40px;
         }
 
-        /* Titre principal avec effet Glitch rouge et cadre rouge */
         h1 {
             border: 4px solid #ff0000;
             padding: 20px;
@@ -30,18 +28,12 @@
             text-shadow: 2px 0 #ff0000, -2px 0 #00ffff, 1px 0 #ff0000;
         }
 
-        /* Cartes de liens avec cadre rouge */
         .link-card {
             background: rgba(0, 0, 0, 0.9);
             border: 3px solid #ff0000;
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 0 10px rgba(255,0,0,0.3);
-            transition: transform 0.2s ease-in-out;
-        }
-
-        .link-card:hover {
-            transform: scale(1.01);
         }
 
         .link-card h3 {
@@ -56,7 +48,6 @@
             margin: 0 0 15px 0;
         }
 
-        /* Zone de l'URL avec cadre rouge */
         .url-box {
             display: flex;
             background: #000000;
@@ -76,7 +67,6 @@
             outline: none;
         }
 
-        /* Bouton Copier */
         .url-box button {
             background: #550000;
             color: #ffffff;
@@ -105,36 +95,39 @@
 </head>
 <body>
 
-    <h1>KΕΓNΕ𝐋 - Catalogue Interdit</h1>
-    <div id="liste-liens">Chargement des ténèbres...</div>
+    <h1>KΕΓNΕ𝐋 - CATALOGUE INTERDIT</h1>
+    <div id="liste-liens"></div>
 
     <script>
-        async function chargerLiens() {
-            try {
-                // Va chercher ton fichier liens.json distant en direct
-                const reponse = await fetch('liens.json?' + new Date().getTime());
-                const liens = await reponse.json();
-                
-                const conteneur = document.getElementById('liste-liens');
-                conteneur.innerHTML = '';
-                
-                liens.forEach((item, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'link-card';
-                    card.innerHTML = `
-                        <h3>${item.titre}</h3>
-                        <p>${item.description}</p>
-                        <div class="url-box">
-                            <input type="text" id="url-${index}" value="${item.url}" readonly>
-                            <button onclick="copierLien('url-${index}', this)">Copier</button>
-                        </div>
-                    `;
-                    conteneur.appendChild(card);
-                });
-            } catch (erreur) {
-                document.getElementById('liste-liens').innerText = "Erreur lors du chargement des données du JSON.";
+        // C'est ici que tu ajoutes ou modifies tes liens très facilement :
+        const liens = [
+            {
+                "titre": "Torch Search",
+                "description": "Le moteur de recherche historique du réseau.",
+                "url": "http://rczml4qtvhfxlwck4jlmky6aa4a7vdbqy3a3ndowv25z5n3wxqweqfyd.onion/"
+            },
+            {
+                "titre": "dark forrest",
+                "description": "forum sécurisé privé tout est chiffré et tu peux parler de ce que bon te semble, (et trouver des personnes interessante)",
+                "url": "http://dkforestseeaaq2dq2uflmlsyvmq2irzn4ygyvu53uazyorednvilid.onion/"
             }
-        }
+        ];
+
+        const conteneur = document.getElementById('liste-liens');
+
+        liens.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'link-card';
+            card.innerHTML = `
+                <h3>${item.titre}</h3>
+                <p>${item.description}</p>
+                <div class="url-box">
+                    <input type="text" id="url-${index}" value="${item.url}" readonly>
+                    <button onclick="copierLien('url-${index}', this)">Copier</button>
+                </div>
+            `;
+            conteneur.appendChild(card);
+        });
 
         function copierLien(idInput, bouton) {
             const input = document.getElementById(idInput);
@@ -150,9 +143,6 @@
                 bouton.classList.remove('copied');
             }, 2000);
         }
-
-        // Lancement du chargement au démarrage
-        chargerLiens();
     </script>
 
 </body>

@@ -15,17 +15,47 @@
             padding: 40px;
         }
 
-        h1 {
+        /* En-tête avec position relative pour placer le filtre à droite */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border: 4px solid #ff0000;
             padding: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-align: center;
             background-color: rgba(0,0,0,0.8);
             box-shadow: 0 0 15px rgba(255,0,0,0.5);
-            position: relative;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        h1 {
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             color: #ffffff;
             text-shadow: 2px 0 #ff0000, -2px 0 #00ffff, 1px 0 #ff0000;
+            font-size: 1.5em;
+        }
+
+        /* Style du menu déroulant (filtre par catégorie) */
+        .filter-box select {
+            background: #000000;
+            color: #ff4444;
+            border: 2px solid #ff0000;
+            padding: 10px 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255,0,0,0.3);
+        }
+
+        .filter-box select option {
+            background: #000000;
+            color: #ffffff;
         }
 
         .link-card {
@@ -46,6 +76,19 @@
         .link-card p {
             color: #cccccc;
             margin: 0 0 15px 0;
+        }
+
+        /* Petit badge indiquant la catégorie sur la carte */
+        .category-badge {
+            display: inline-block;
+            background: #550000;
+            color: #ff8888;
+            font-size: 0.8em;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            border: 1px solid #ff0000;
+            text-transform: uppercase;
         }
 
         .url-box {
@@ -89,13 +132,26 @@
         }
 
         #liste-liens {
-            margin-top: 30px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>KΕΓNΕ𝐋 - CATALOGUE INTERDIT</h1>
+    <div class="header-container">
+        <h1>KΕΓNΕ𝐋 - CATALOGUE INTERDIT</h1>
+        <div class="filter-box">
+            <select id="categorie-select" onchange="filtrerLiens()">
+                <option value="toutes">Toutes les catégories</option>
+                <option value="moteur de recherche">Moteur de recherche</option>
+                <option value="social">Social</option>
+                <option value="market">Market</option>
+                <option value="outils">Outils (Vide)</option>
+                <option value="securite">Sécurité (Vide)</option>
+            </select>
+        </div>
+    </div>
+
     <div id="liste-liens"></div>
 
     <script>
@@ -103,50 +159,75 @@
             {
                 "titre": "Torch Search",
                 "description": "Le moteur de recherche historique du réseau.",
-                "url": "http://torchdeedp3i2jigzjdmfpn5ttjhthh5wbmda2rr3jvqjg5p77c54dqd.onion/"
+                "url": "http://torchdeedp3i2jigzjdmfpn5ttjhthh5wbmda2rr3jvqjg5p77c54dqd.onion/",
+                "categorie": "moteur de recherche"
             },
             {
                 "titre": "dark forrest",
                 "description": "forum sécurisé privé tout est chiffré et tu peux parler de ce que bon te semble, (et trouver des personnes interessante)",
-                "url": "http://dkforestseeaaq2dq2uflmlsyvmq2irzn4ygyvu53uazyorednvilid.onion/"
+                "url": "http://dkforestseeaaq2dq2uflmlsyvmq2irzn4ygyvu53uazyorednvilid.onion/",
+                "categorie": "social"
             },
             {
                 "titre": "dig.ia",
                 "description": "ia sans limite tu peut tout faire ;)",
-                "url": "https://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion/"
+                "url": "https://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion/",
+                "categorie": "outils"
             },
             {
                 "titre": "Nexus",
                 "description": "Le market le plus connu du darknet avec +100k vente réalisé et vérifié (attention tout de meme a la reputation du vendeur)",
-                "url": "http://nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd.onion/"
+                "url": "http://nexusabcdkq4pdlubs6wk6ad7pobuupzoomoxi6p7l32ci4vjtb2z7yd.onion/",
+                "categorie": "market"
             },
             {
                 "titre": "darkweb market",
                 "description": "plateforme de vente en tout genre dark market pensez bien a verifier la popularité et vente des vendeur !",
-                "url": "http://dnrk746n2632y7gn5japydalxrusvenllrltapw743yjglpmbo2kkhqd.onion/"
+                "url": "http://dnrk746n2632y7gn5japydalxrusvenllrltapw743yjglpmbo2kkhqd.onion/",
+                "categorie": "market"
             },
             {
                 "titre": "honor gun",
                 "description": "l'un des marches phare de l'armement lourd",
-                "url": "http://x4fcceh6bfwxr4b54i6tgufhmut43jqqi4oeapg3oubjlrkzzm5bw5qd.onion/"
+                "url": "http://x4fcceh6bfwxr4b54i6tgufhmut43jqqi4oeapg3oubjlrkzzm5bw5qd.onion/",
+                "categorie": "market"
             }
         ];
 
-        const conteneur = document.getElementById('liste-liens');
+        function afficherLiens(categorieFiltre) {
+            const conteneur = document.getElementById('liste-liens');
+            conteneur.innerHTML = '';
 
-        liens.forEach((item, index) => {
-            const card = document.createElement('div');
-            card.className = 'link-card';
-            card.innerHTML = `
-                <h3>${item.titre}</h3>
-                <p>${item.description}</p>
-                <div class="url-box">
-                    <input type="text" id="url-${index}" value="${item.url}" readonly>
-                    <button onclick="copierLien('url-${index}', this)">Copier</button>
-                </div>
-            `;
-            conteneur.appendChild(card);
-        });
+            const liensFiltres = liens.filter(item => {
+                if (categorieFiltre === 'toutes') return true;
+                return item.categorie === categorieFiltre;
+            });
+
+            if (liensFiltres.length === 0) {
+                conteneur.innerHTML = '<div class="link-card" style="text-align:center; color:#ff4444;">Aucun service dans cette catégorie pour le moment...</div>';
+                return;
+            }
+
+            liensFiltres.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'link-card';
+                card.innerHTML = `
+                    <span class="category-badge">${item.categorie}</span>
+                    <h3>${item.titre}</h3>
+                    <p>${item.description}</p>
+                    <div class="url-box">
+                        <input type="text" id="url-${index}" value="${item.url}" readonly>
+                        <button onclick="copierLien('url-${index}', this)">Copier</button>
+                    </div>
+                `;
+                conteneur.appendChild(card);
+            });
+        }
+
+        function filtrerLiens() {
+            const categorieChoisie = document.getElementById('categorie-select').value;
+            afficherLiens(categorieChoisie);
+        }
 
         function copierLien(idInput, bouton) {
             const input = document.getElementById(idInput);
@@ -162,6 +243,9 @@
                 bouton.classList.remove('copied');
             }, 2000);
         }
+
+        // Affichage initial au chargement de la page
+        afficherLiens('toutes');
     </script>
 
 </body>

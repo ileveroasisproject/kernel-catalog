@@ -15,7 +15,6 @@
             padding: 40px;
         }
 
-        /* En-tête avec position relative pour placer le filtre à droite */
         .header-container {
             display: flex;
             justify-content: space-between;
@@ -38,7 +37,6 @@
             font-size: 1.5em;
         }
 
-        /* Style du menu déroulant (filtre par catégorie) */
         .filter-box select {
             background: #000000;
             color: #ff4444;
@@ -78,7 +76,6 @@
             margin: 0 0 15px 0;
         }
 
-        /* Petit badge indiquant la catégorie sur la carte */
         .category-badge {
             display: inline-block;
             background: #550000;
@@ -216,8 +213,8 @@
                     <h3>${item.titre}</h3>
                     <p>${item.description}</p>
                     <div class="url-box">
-                        <input type="text" id="url-${index}" value="${item.url}" readonly>
-                        <button onclick="copierLien('url-${index}', this)">Copier</button>
+                        <input type="text" id="url-field-${index}" value="${item.url}" readonly>
+                        <button onclick="copierLien('url-field-${index}', this)">Copier</button>
                     </div>
                 `;
                 conteneur.appendChild(card);
@@ -244,7 +241,6 @@
             }, 2000);
         }
 
-        // Affichage initial au chargement de la page
         afficherLiens('toutes');
     </script>
 

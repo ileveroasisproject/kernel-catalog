@@ -23,42 +23,70 @@
             margin-bottom: 15px;
             border-radius: 4px;
         }
-        .link-card a {
-            color: #58a6ff;
-            font-size: 1.2em;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .link-card a:hover {
-            text-decoration: underline;
+        .link-card h3 {
+            color: #ffffff;
+            margin: 0 0 5px 0;
         }
         .link-card p {
             color: #8b949e;
-            margin: 5px 0 0 0;
+            margin: 0 0 10px 0;
+        }
+        .url-box {
+            display: flex;
+            background: #000000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .url-box input {
+            background: transparent;
+            border: none;
+            color: #58a6ff;
+            padding: 8px;
+            width: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            outline: none;
+        }
+        .url-box button {
+            background: #21262d;
+            color: #c9d1d9;
+            border: none;
+            border-left: 1px solid #333;
+            padding: 0 15px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .url-box button:hover {
+            background: #30363d;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
     <h1>KΕΓNΕ𝐋 - Catalogue</h1>
-    <div id="liste-liens">Chargement des données...</div>
+    <div id="liste-liens">Chargement...</div>
 
     <script>
         async function chargerLiens() {
             try {
-                // Le fichier liens.json doit se trouver au même endroit
-                const reponse = await fetch('liens.json?' + new Date().getTime()); // Empêche le cache du navigateur
+                const reponse = await fetch('liens.json?' + new Date().getTime());
                 const liens = await reponse.json();
                 
                 const conteneur = document.getElementById('liste-liens');
                 conteneur.innerHTML = '';
                 
-                liens.forEach(item => {
+                liens.forEach((item, index) => {
                     const card = document.createElement('div');
                     card.className = 'link-card';
                     card.innerHTML = `
-                        <a href="${item.url}" target="_blank">${item.titre}</a>
+                        <h3>${item.titre}</h3>
                         <p>${item.description}</p>
+                        <div class="url-box">
+                            <input type="text" id="url-${index}" value="${item.url}" readonly>
+                            <button onclick="copierLien('url-${index}', this)">Copier</button>
+                        </div>
                     `;
                     conteneur.appendChild(card);
                 });
@@ -67,11 +95,22 @@
             }
         }
 
-        // Charge les liens au démarrage
-        chargerLiens();
+        function copierLien(idInput, bouton) {
+            const input = document.getElementById(idInput);
+            input.select();
+            input.setSelectionRange(0, 99999); // Pour mobiles
+            navigator.clipboard.writeText(input.value);
+            
+            const texteOriginal = bouton.innerText;
+            bouton.innerText = "Copié !";
+            bouton.style.color = "#3fb950";
+            setTimeout(() => {
+                bouton.innerText = texteOriginal;
+                bouton.style.color = "";
+            }, 2000);
+        }
 
-        // Optionnel : Actualise automatiquement toutes les 10 secondes pour voir les modifs en temps réel
-        setInterval(chargerLiens, 10000);
+        chargerLiens();
     </script>
 
 </body>

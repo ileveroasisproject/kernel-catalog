@@ -4,86 +4,130 @@
     <meta charset="UTF-8">
     <title>Annuaire KERNEL</title>
     <style>
+        /* 1. Fond d'écran avec sourires effrayants répétés */
         body {
-            background-color: #0b0b0b;
+            background-color: #000000; /* Fond noir pur */
+            background-image: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath opacity='.5' d='M96 20c0 1.105-.895 2-2 2H6c-1.105 0-2-.895-2-2s.895-2 2-2h8.032c1.137 0 2.116-.744 2.425-1.79l1.386-4.708C18.438 9.68 20.168 8.5 22.114 8.5h55.772c1.946 0 3.676 1.18 4.343 3.502l1.386 4.708c.309 1.046 1.288 1.79 2.425 1.79H94c1.105 0 2 .895 2 2zM50 90c-8 0-12-4-12-4s-4 4-12 4-12-4-12-4-4 4-12 4v-8c8 0 12 4 12 4s4-4 12-4 12 4 12 4s4-4 12-4 12 4 12 4v8c-8 0-12-4-12-4s-4 4-12 4z'/%3E%3Cpath d='M22.5 32.5c0 4.142-3.358 7.5-7.5 7.5s-7.5-3.358-7.5-7.5 3.358-7.5 7.5-7.5 7.5 3.358 7.5 7.5zm55 0c0 4.142-3.358 7.5-7.5 7.5s-7.5-3.358-7.5-7.5 3.358-7.5 7.5-7.5 7.5 3.358 7.5 7.5z'/%3E%3Ccircle cx='15' cy='65' r='3'/%3E%3Ccircle cx='85' cy='65' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-size: 150px 150px; /* Ajuste la taille des sourires */
             color: #ffffff;
             font-family: 'Courier New', Courier, monospace;
             padding: 40px;
         }
+
+        /* 2. Titre principal avec effet Glitch rouge et cadre rouge */
         h1 {
-            border-bottom: 2px solid #ffffff;
-            padding-bottom: 10px;
+            border: 4px solid #ff0000; /* Cadre rouge épais */
+            padding: 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-align: center;
+            background-color: rgba(0,0,0,0.8);
+            box-shadow: 0 0 15px rgba(255,0,0,0.5);
+            
+            /* Effet Glitch */
+            position: relative;
+            color: #ffffff;
+            text-shadow: 2px 0 #ff0000, -2px 0 #00ffff, 1px 0 #ff0000;
         }
+
+        /* 3. Cartes de liens avec cadre rouge et fond sombre */
         .link-card {
-            background: #141414;
-            border: 1px solid #333;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.9); /* Fond sombre pour la carte */
+            border: 3px solid #ff0000; /* Cadre rouge autour de chaque carte */
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(255,0,0,0.3);
+            transition: transform 0.2s ease-in-out;
         }
+
+        .link-card:hover {
+            transform: scale(1.01); /* Léger zoom au survol */
+        }
+
         .link-card h3 {
             color: #ffffff;
-            margin: 0 0 5px 0;
-        }
-        .link-card p {
-            color: #8b949e;
             margin: 0 0 10px 0;
+            text-shadow: 0 0 5px #ff0000;
+            font-size: 1.3em;
         }
+
+        .link-card p {
+            color: #cccccc;
+            margin: 0 0 15px 0;
+        }
+
+        /* 4. Zone de l'URL avec cadre rouge */
         .url-box {
             display: flex;
-            background: #000000;
-            border: 1px solid #333;
+            background: #000000; /* Fond noir pour l'input */
+            border: 2px solid #ff0000; /* Cadre rouge */
             border-radius: 4px;
             overflow: hidden;
         }
+
         .url-box input {
             background: transparent;
             border: none;
-            color: #58a6ff;
-            padding: 8px;
+            color: #ff4444; /* Texte de l'URL en rouge clair */
+            padding: 10px;
             width: 100%;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9em;
+            font-size: 1em;
             outline: none;
         }
+
+        /* 5. Bouton Copier avec style rouge */
         .url-box button {
-            background: #21262d;
-            color: #c9d1d9;
+            background: #550000; /* Fond rouge très foncé */
+            color: #ffffff;
             border: none;
-            border-left: 1px solid #333;
-            padding: 0 15px;
+            border-left: 2px solid #ff0000;
+            padding: 0 20px;
             cursor: pointer;
             font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            transition: background 0.2s;
         }
+
         .url-box button:hover {
-            background: #30363d;
-            color: #ffffff;
+            background: #ff0000; /* Fond rouge vif au survol */
+        }
+
+        .url-box button.copied {
+            background: #3fb950; /* Vert quand c'est copié */
+            color: #000;
+        }
+
+        #liste-liens {
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
-    <h1>KΕΓNΕ𝐋 - Catalogue</h1>
-    <div id="liste-liens"></div>
+    <h1>KΕΓNΕ𝐋 - Catalogue Interdit</h1>
+    <div id="liste-liens">Chargement des ténèbres...</div>
 
     <script>
-        // Modifie ou ajoute tes liens directement ici :
+        // Modifie tes liens directement dans ce tableau sur GitHub :
         const liens = [
             {
                 "titre": "Torch Search",
-                "description": "Le moteur de recherche historique du réseau.",
+                "description": "L'accès profond aux archives oubliées.",
                 "url": "http://rczml4qtvhfxlwck4jlmky6aa4a7vdbqy3a3ndowv25z5n3wxqweqfyd.onion/"
             },
             {
                 "titre": "Ahmia",
-                "description": "Moteur de recherche open-source pour services cachés.",
+                "description": "L'indexeur de surface, sous surveillance.",
                 "url": "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion"
             }
         ];
 
         const conteneur = document.getElementById('liste-liens');
+        conteneur.innerHTML = ''; // Vide le message de chargement
+
         liens.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'link-card';
@@ -101,15 +145,16 @@
         function copierLien(idInput, bouton) {
             const input = document.getElementById(idInput);
             input.select();
-            input.setSelectionRange(0, 99999);
+            input.setSelectionRange(0, 99999); // Pour compatibilité mobile
             navigator.clipboard.writeText(input.value);
             
-            const texteOriginal = bouton.innerText;
+            // Animation visuelle du bouton
             bouton.innerText = "Copié !";
-            bouton.style.color = "#3fb950";
+            bouton.classList.add('copied');
+            
             setTimeout(() => {
-                bouton.innerText = texteOriginal;
-                bouton.style.color = "";
+                bouton.innerText = "Copier";
+                bouton.classList.remove('copied');
             }, 2000);
         }
     </script>

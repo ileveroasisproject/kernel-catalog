@@ -66,39 +66,42 @@
 <body>
 
     <h1>KΕΓNΕ𝐋 - Catalogue</h1>
-    <div id="liste-liens">Chargement...</div>
+    <div id="liste-liens"></div>
 
     <script>
-        async function chargerLiens() {
-            try {
-                const reponse = await fetch('liens.json?' + new Date().getTime());
-                const liens = await reponse.json();
-                
-                const conteneur = document.getElementById('liste-liens');
-                conteneur.innerHTML = '';
-                
-                liens.forEach((item, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'link-card';
-                    card.innerHTML = `
-                        <h3>${item.titre}</h3>
-                        <p>${item.description}</p>
-                        <div class="url-box">
-                            <input type="text" id="url-${index}" value="${item.url}" readonly>
-                            <button onclick="copierLien('url-${index}', this)">Copier</button>
-                        </div>
-                    `;
-                    conteneur.appendChild(card);
-                });
-            } catch (erreur) {
-                document.getElementById('liste-liens').innerText = "Erreur lors du chargement des données.";
+        // Modifie ou ajoute tes liens directement ici :
+        const liens = [
+            {
+                "titre": "Torch Search",
+                "description": "Le moteur de recherche historique du réseau.",
+                "url": "http://rczml4qtvhfxlwck4jlmky6aa4a7vdbqy3a3ndowv25z5n3wxqweqfyd.onion/"
+            },
+            {
+                "titre": "Ahmia",
+                "description": "Moteur de recherche open-source pour services cachés.",
+                "url": "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion"
             }
-        }
+        ];
+
+        const conteneur = document.getElementById('liste-liens');
+        liens.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'link-card';
+            card.innerHTML = `
+                <h3>${item.titre}</h3>
+                <p>${item.description}</p>
+                <div class="url-box">
+                    <input type="text" id="url-${index}" value="${item.url}" readonly>
+                    <button onclick="copierLien('url-${index}', this)">Copier</button>
+                </div>
+            `;
+            conteneur.appendChild(card);
+        });
 
         function copierLien(idInput, bouton) {
             const input = document.getElementById(idInput);
             input.select();
-            input.setSelectionRange(0, 99999); // Pour mobiles
+            input.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(input.value);
             
             const texteOriginal = bouton.innerText;
@@ -109,7 +112,7 @@
                 bouton.style.color = "";
             }, 2000);
         }
-
-        chargerLiens();
     </script>
 
+</body>
+</html>
